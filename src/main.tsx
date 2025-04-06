@@ -42,7 +42,7 @@ Devvit.addCustomPostType({
     
     return (
       <vstack alignment='center middle' height='100%'>
-        <text size='xxlarge' weight='bold'>e
+        <text size='xxlarge' weight='bold'>
           {bodyText}
         </text>
         <image url = {avatar} imageWidth={100} imageHeight={100} />
