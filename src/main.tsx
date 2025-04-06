@@ -1,15 +1,15 @@
 // Visit developers.reddit.com/docs to learn Devvit!
-import './guts/share.js';
 import { Devvit } from '@devvit/public-api';
-
 import {createPost} from './guts/steps.js';
 
+// Configures the Reddit API
 Devvit.configure({
   redditAPI: true,
   redis: true,
   http: true,
 });
 
+// Creates a menu item to create a moderator post
 Devvit.addMenuItem({
   location: 'subreddit',
   label: 'Hello World',
@@ -17,6 +17,7 @@ Devvit.addMenuItem({
   onPress: createPost,
 });
 
+// Creates a custom post and renders
 Devvit.addCustomPostType({
   name: 'Hello-World',
   render: (context) => {
@@ -28,23 +29,29 @@ Devvit.addCustomPostType({
       return user?.username ?? 'user';
     });
 
+    /* Grabs the current user's snoovatarURL with the Reddit API Client &
+    handles the case for a logged out user. */
     const [snoovatar] = context.useState(async () => {
       const snoovatarUrl = await context.reddit.getSnoovatarUrl(username);
       return snoovatarUrl ?? 'https://www.redditstatic.com/desktop2x/img/snoovatar-placeholder.png';
     });
 
+    // Creates the consant used in the visual template
     const bodyText = `Hi ${username}!`;
     const avatar = `${snoovatar}`;
     
     return (
       <vstack alignment='center middle' height='100%'>
-        <text size='xxlarge' weight='bold'>
+        <text size='xxlarge' weight='bold'>e
           {bodyText}
         </text>
         <image url = {avatar} imageWidth={100} imageHeight={100} />
       </vstack>
     );
+
   },
+
 });
 
+// Cryptic place holder
 export default Devvit;
